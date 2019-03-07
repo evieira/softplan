@@ -1,0 +1,26 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pu="http://primefaces.org/ultima">
+    
+    <h:form id="menuform"> 
+        <div class="layout-menu">
+            <div class="nano">
+                <div class="nano-content menu-scroll-content">
+                    <pu:menu widgetVar="me">
+                        <p:menuitem id="um_dashboard" value="backend" icon="&#xE871;" outcome="/paginas/index"/>
+                        <p:submenu label="Cadastros">
+                            <p:menuitem value="Usuário" icon="&#xE0BA;" outcome="/paginas/cadastro/usuario/cadastroUsuario"/>
+                            <p:menuitem value="Entidade" icon="&#xE0BA;" outcome="/paginas/cadastro/cadastroEntidade"/>
+                            <p:menuitem value="Plano" icon="&#xE0BA;" outcome="/paginas/cadastro/cadastroPlano"/>
+                            <p:menuitem value="Tipo de Dado" icon="&#xE0BA;" outcome="/paginas/cadastro/cadastroTipoDado"/>
+                        </p:submenu>
+                    </pu:menu>
+                </div>
+            </div>
+        </div>
+    </h:form>
+</ui:composition>

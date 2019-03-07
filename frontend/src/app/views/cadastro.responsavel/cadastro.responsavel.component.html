@@ -1,0 +1,74 @@
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          Gestão de processos | {{idResponsavel != null ? 'Editar' : 'Cadastrar'}} responsável | <span style="color: #4dbd74">{{mensagem}}</span> <span style="color: #f86c6b">{{mensagemErro}}</span>
+        </div>
+        <div class="card-body">
+            <div class="col-sm-12">
+              <form [formGroup]="formResponsavel" (ngSubmit)="salvar()">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input type="text" formControlName="nome" ngModel="{{responsavel.nome}}" class="form-control" id="nome" pInputText [ngClass]="{ 'is-invalid': submitted && f.nome.errors }">
+                    <div *ngIf="submitted && f.nome.errors" class="invalid-feedback">
+                      <div *ngIf="f.nome.errors.required">Nome é obrigatório</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                    <label for="cpf" style="display: block;">CPF</label>
+                    <p-inputMask id="cpf" formControlName="cpf" ngModel="{{responsavel.cpf}}" mask="999.999.999-99" [ngClass]="{ 'is-invalid': submitted && f.cpf.errors }"></p-inputMask>
+                    <div *ngIf="submitted && f.cpf.errors" class="invalid-feedback">
+                      <div *ngIf="f.cpf.errors.required">CPF é obrigatório</div>
+                    </div>
+                </div>
+                <div class="col-sm-2" style="margin-top: 30px;">
+                  <p-button type="submit" label="Salvar" ></p-button>
+                </div>
+              </div>
+              </form>
+            </div>
+        </div>
+      </div>
+    </div><!--/.col-->
+  </div><!--/.row-->
+
+  <div class="row" *ngIf="responsavel.id > 0">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          Processos que é responsável
+        </div>
+        <div class="ui-g ui-fluid">
+          <div class="card-body">
+            <p-table [value]="listProcessos" [paginator]="true" [rows]="10">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>Número processo unificado</th>
+                  <th>Data distribuição</th>
+                  <th>Segredo Judicial</th>
+                  <th>Pasta física cliente</th>
+                  <th>Descrição</th>
+                  <th>Setuação</th>
+                  <th>Responsaveis</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-processo>
+                <tr>
+                  <td>{{processo.numeroProcessoUnificado}}</td>
+                  <td>{{processo.dtDistribuicao | date: 'dd/MM/yyyy'}}</td>
+                  <td>{{processo.segredoDeJustica ? 'Sim' : 'Não'}}</td>
+                  <td>{{processo.pastaFisicaCliente}}</td>
+                  <td>{{processo.descricao}}</td>
+                  <td>{{processo.situacao}}</td>
+                  <td>{{processo.responsaveis}}</td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+      </div>
+    </div><!--/.col-->
+  </div><!--/.row-->

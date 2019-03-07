@@ -1,0 +1,84 @@
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          Gestão de processos | Consultar responsável
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="callout callout-info">
+                    <strong class="h4">Filtros</strong>
+                  </div>
+                </div><!--/.col-->
+              </div><!--/.row-->
+              <hr class="mt-0">
+            </div><!--/.col-->
+          </div><!--/.row-->
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="responsavel">Responsável</label>
+                  <input type="text"  class="form-control" id="responsavel" pInputText [(ngModel)]="nome" >
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label for="cpf" style="display: block;">CPF</label>
+                  <p-inputMask class="ui-md12" id="cpf" mask="999.999.999-99" [(ngModel)]="cpf"></p-inputMask>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label for="numeroProcessoUnificado" style="display: block;">Número processo unificado</label>
+                  <p-inputMask class="ui-md12" id="numeroProcessoUnificado"
+                               mask="9999999-99.9999.9.99.9999" [(ngModel)]="numeroProcesso"></p-inputMask>
+                </div>
+              </div>
+              <div class="col-sm-2" style="margin-top: 30px;">
+                <p-button  label="Consultar" (onClick)="getResponsaveis()" ></p-button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!--/.col-->
+  </div><!--/.row-->
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+
+        </div>
+        <div class="ui-g ui-fluid">
+          <div class="card-body">
+            <p-table [value]="listaResponsaveis" [paginator]="true" [rows]="10">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>Nome</th>
+                  <th>CPF</th>
+                  <th>Processos que é responsavel</th>
+                  <th>Ações</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-responsavel>
+                <tr>
+                  <td>{{responsavel.nome}}</td>
+                  <td>{{responsavel.cpf}}</td>
+                  <td>{{responsavel.processos}}</td>
+                  <td>
+                    <a routerLink="/cadastroResponsavel/editar/{{responsavel.id}}"><i class="fa fa-pencil"></i></a>
+                    <a routerLink="/removerResponsavel/remover/{{responsavel.id}}" *ngIf="responsavel.processos == ''"><i class="fa fa-close"></i></a>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+      </div>
+    </div><!--/.col-->
+  </div><!--/.row-->

@@ -1,0 +1,155 @@
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          Gestão de processos | {{idProcesso != null ? 'Editar' : 'Cadastrar'}} processo | <span style="color: #4dbd74">{{mensagem}}</span> <span style="color: #f86c6b">{{mensagemErro}}</span>
+        </div>
+        <div class="ui-g ui-fluid">
+        <div class="card-body">
+          <form (ngSubmit)="salvarProcesso()">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <div class="form-group">
+                      <label for="numeroProcessoUnificado" style="display: block;">Número processo unificado</label>
+                      <!--<input type="text" class="form-control" ngModel="{{processo.numeroProcessoUnificado}}" id="numeroProcessoUnificado" pInputText="">-->
+                      <p-inputMask id="numeroProcessoUnificado" name="numeroProcessoUnificado" [(ngModel)]="processo.numeroProcessoUnificado" mask="9999999-99.9999.9.99.9999"></p-inputMask>
+                    </div>
+                  </div>
+                  <div class="col-sm-2">
+                    <div>
+                      <label for="dataDistribuicaoInicio" style="display: block;">Data distribuição - Início</label>
+                      <p-calendar id="dataDistribuicaoInicio" name="dataDistribuicaoInicio" [(ngModel)]="dtDistribuicao" dateFormat="dd/mm/yy" [showIcon]="true"></p-calendar>
+                    </div>
+                  </div>
+                  <div class="col-sm-2">
+                    <label for="situacao" style="display: block">Situação</label>
+                    <p-dropdown id="situacao" name="situacao" [options]="listaSituacao" [(ngModel)]="situacaoSelecionada" optionLabel="descricao" [showClear]="true"></p-dropdown>
+                  </div>
+                  <div class="col-sm-2">
+                    <div class="form-group">
+                      <label for="pastaFisicaCliente">Pasta física cliente</label>
+                      <input name="pastaFisicaCliente" type="text" class="form-control" [(ngModel)]="processo.pastaFisicaCliente" id="pastaFisicaCliente" pInputText="">
+                    </div>
+                  </div>
+                  <div class="col-sm-2">
+                    <label for="segredoJustica" style="display: block">Segredo de justiça</label>
+                    <p-checkbox id="segredoJustica" name="segredoJustica" [(ngModel)]="processo.segredoDeJustica" binary="true"></p-checkbox>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="card">
+                  <div class="card-header">
+                    Responsáveis
+                  </div>
+                  <div class="card-body">
+                    <div class="ui-g ui-fluid">
+                      <div class="ui-g-12 ui-md-12">
+                        <div class="ui-inputgroup">
+                          <p-autoComplete name="responsavel1" [(ngModel)]="responsavel1" [suggestions]="listaResponsaveis"
+                                          (completeMethod)="getListaResponsaveis($event)" field="nome" [size]="30"
+                                          [minLength]="1"></p-autoComplete>
+                        </div>
+                      </div>
+                      <div class="ui-g-12 ui-md-12">
+                        <div class="ui-inputgroup">
+                          <p-autoComplete name="responsavel2" [(ngModel)]="responsavel2" [suggestions]="listaResponsaveis"
+                                          (completeMethod)="getListaResponsaveis($event)" field="nome" [size]="30"
+                                          [minLength]="1"></p-autoComplete>
+                        </div>
+                      </div>
+                      <div class="ui-g-12 ui-md-12">
+                        <div class="ui-inputgroup">
+                          <p-autoComplete name="responsavel3" [(ngModel)]="responsavel3" [suggestions]="listaResponsaveis"
+                                          (completeMethod)="getListaResponsaveis($event)" field="nome" [size]="30"
+                                          [minLength]="1"></p-autoComplete>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <label for="descricao" style="display: block;">Descrição</label>
+                    <textarea id="descricao" name="descricao" [(ngModel)]="processo.descricao" pInputTextarea autoResize="false" rows="9"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="card">
+                  <div class="card-header">
+                    Processo vinculado
+                  </div>
+                  <div class="card-body">
+                    <div class="ui-g ui-fluid">
+                      <div class="ui-g-12 ui-md-12">
+                        <div class="row">
+                          <div class="ui-g-12 ui-md-12">
+                          <p-autoComplete name="processoPai" [(ngModel)]="processoPai" [suggestions]="listaProcessos"
+                                          (completeMethod)="getListaProcessos($event)" field="numeroProcessoUnificado" [size]="30"
+                                          [minLength]="1"></p-autoComplete>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="ui-g-12 ui-md-12" *ngIf="processoPai != undefined">
+                          {{processoPai.numeroProcessoUnificado}} - Data distribuição: {{processoPai.dtDistribuicao | date: 'dd/MM/yyyy'}} - Situação: {{processoPai.situacao}} {{processoPai.segredoDeJustica ? '(Segredo de justiça)' : ''}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-11">
+              </div>
+              <div class="col-sm-1" style="text-align: right">
+                <p-button type="submit"  label="Salvar"></p-button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div><!--/.col-->
+  </div><!--/.row-->
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          Processos vinculados(filhos)
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <ul *ngIf="processosFilhos1 != undefined">
+                <li>Número processo unificado: {{processosFilhos1.numeroProcessoUnificado}} - Data distribuição: {{processosFilhos1.dtDistribuicao | date: 'dd/MM/yyyy'}} - Situação: {{processosFilhos1.situacao}} {{processosFilhos1.segredoDeJustica ? '(Segredo de justiça)' : ''}}</li>
+                <li *ngIf="processosFilhos2 != undefined">
+                  <ul>
+                    <li>Número processo unificado: {{processosFilhos2.numeroProcessoUnificado}} - Data distribuição: {{processosFilhos2.dtDistribuicao | date: 'dd/MM/yyyy'}} - Situação: {{processosFilhos2.situacao}} {{processosFilhos2.segredoDeJustica ? '(Segredo de justiça)' : ''}}</li>
+                    <li *ngIf="processosFilhos3 != undefined">
+                      <ul>
+                        <li>Número processo unificado: {{processosFilhos3.numeroProcessoUnificado}} - Data distribuição: {{processosFilhos3.dtDistribuicao | date: 'dd/MM/yyyy'}} - Situação: {{processosFilhos3.situacao}} {{processosFilhos3.segredoDeJustica ? '(Segredo de justiça)' : ''}}</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!--/.col-->
+  </div><!--/.row-->
+
+

@@ -1,0 +1,27 @@
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          Gestão de processos | Remover responsável <span style="color: #4dbd74">{{mensagem}}</span> <span style="color: #f86c6b">{{mensagemErro}}</span>
+        </div>
+        <div class="card-body">
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="col-sm-12">
+                  Deseja remover o responsável {{responsavel.nome}} ?
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-9"></div>
+                <div class="col-sm-2">
+                  <p-button type="button" (onClick)="remover()" label="Remover" ></p-button>
+                </div>
+                <div class="col-sm-1">
+                  <button pButton type="button" (click)="voltar()" label="Voltar" class="ui-button-danger"></button>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div><!--/.col-->
+  </div><!--/.row-->

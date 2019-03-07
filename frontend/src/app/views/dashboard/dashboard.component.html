@@ -1,0 +1,109 @@
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          Gestão de processos | Consultar processo
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="callout callout-info">
+                    <strong class="h4">Filtros</strong>
+                  </div>
+                </div><!--/.col-->
+              </div><!--/.row-->
+              <hr class="mt-0">
+            </div><!--/.col-->
+          </div><!--/.row-->
+          <div class="col-sm-12">
+            <div class="row">
+            <div class="ui-g ui-fluid">
+              <div class="ui-g-12 ui-md-4 ui-lg-4">
+                <label for="numeroProcessoUnificado">Número processo unificado</label>
+                <p-inputMask id="numeroProcessoUnificado" [(ngModel)]="numeroProcesso" mask="9999999-99.9999.9.99.9999"></p-inputMask>
+              </div>
+              <div class="ui-g-12 ui-md-2 ui-lg-2">
+                <label for="dataDistribuicaoInicio" >Data distribuiçao - Início</label>
+                <p-calendar  id="dataDistribuicaoInicio" [(ngModel)]="dtInicio" dateFormat="dd/mm/yy" [showIcon]="true"></p-calendar>
+              </div>
+              <div class="ui-g-12 ui-md-2 ui-lg-2">
+                <label for="dataDistribuicaoFim" >Fim</label>
+                <p-calendar id="dataDistribuicaoFim" [(ngModel)]="dtFim" dateFormat="dd/mm/yy" [showIcon]="true"></p-calendar>
+              </div>
+              <div class="ui-g-12 ui-md-2 ui-lg-2">
+                <label for="situacao" style="display: block;">Situação</label>
+                <p-dropdown id="situacao" [options]="listaSituacao" [(ngModel)]="situacaoSelecionada" optionLabel="descricao" [showClear]="true"></p-dropdown>
+              </div>
+              <div class="ui-g-12 ui-md-2 ui-lg-2">
+                <label for="segredoJustica" style="display: block;">Segredo de justiça</label>
+                <p-checkbox  id="segredoJustica" [(ngModel)]="segredoJustica" binary="true"></p-checkbox>
+              </div>
+            </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-5">
+              <div class="form-group">
+                <label for="pastaFisicaCliente">Pasta física cliente</label>
+                <input type="text" class="form-control" id="pastaFisicaCliente" pInputText [(ngModel)]="pastaFisicaCliente">
+              </div>
+            </div>
+            <div class="col-sm-5">
+              <div class="form-group">
+                <label for="responsavel">Responsável</label>
+                <input type="text" class="form-control" id="responsavel" pInputText [(ngModel)]="responsavel">
+              </div>
+            </div>
+            <div class="col-sm-2" style="margin-top: 30px;">
+                <p-button (onClick)="getListaProcessos()" label="Consultar" ></p-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!--/.col-->
+  </div><!--/.row-->
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+
+        </div>
+        <div class="ui-g ui-fluid">
+          <div class="card-body">
+            <p-table [value]="listaProcesso" [paginator]="true" [rows]="10">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>Número processo unificado</th>
+                  <th>Data distribuição</th>
+                  <th>Segredo Judicial</th>
+                  <th>Pasta física cliente</th>
+                  <th>Descrição</th>
+                  <th>Setuação</th>
+                  <th>Responsaveis</th>
+                  <th>Ações</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-processo>
+                <tr>
+                  <td>{{processo.numeroProcessoUnificado}}</td>
+                  <td>{{processo.dtDistribuicao | date: 'dd/MM/yyyy'}}</td>
+                  <td>{{processo.segredoDeJustica ? 'Sim' : 'Não'}}</td>
+                  <td>{{processo.pastaFisicaCliente}}</td>
+                  <td>{{processo.descricao}}</td>
+                  <td>{{processo.situacao}}</td>
+                  <td>{{processo.responsaveis}}</td>
+                  <td>
+                    <a routerLink="/cadastroProcesso/editar/{{processo.id}}"><i class="fa fa-pencil"></i></a>
+                    <a routerLink="/removerProcesso/remover/{{processo.id}}" *ngIf="processo.processoFilho == null"><i class="fa fa-close"></i></a>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+      </div>
+    </div><!--/.col-->
+  </div><!--/.row-->
